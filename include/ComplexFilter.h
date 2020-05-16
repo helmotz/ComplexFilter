@@ -15,7 +15,6 @@ class ComplexFilter
     using ResultType = uint32_t;
 
   private:
-
     struct SampleEvent
     {
       SampleType sample;
@@ -40,6 +39,8 @@ class ComplexFilter
 
     void addSample(SampleType sample);
     void calculateOutput(ResultType &i_res, ResultType &q_res);
+    void setResult(ResultType i_res, ResultType q_res);
+
     ResultType scalar_product(TapType *t, SampleType *s);
 
   public:
@@ -49,14 +50,12 @@ class ComplexFilter
     ComplexFilter & operator = (const ComplexFilter &) = delete;
 
     void setTaps(int mtaps, TapType *i_taps, TapType *q_taps);
-    void setResult(ResultType i_res, ResultType q_res);
 
     ResultType getI() const;
     ResultType getQ() const;
 
     void enqueueSample(SampleType sample, bool from_isr);
     static void mainLoop(ComplexFilter *instance);
-    
 };
 
 #endif

@@ -16,7 +16,6 @@ void ComplexFilter::calculateOutput(ComplexFilter::ResultType & i_res, ComplexFi
     q_res = scalar_product(_qTapsPtr, &_samplesPtr[_samplePos]);
 }
 
-
 ComplexFilter::ResultType ComplexFilter::scalar_product(ComplexFilter::TapType *t, ComplexFilter::SampleType *s)
 {
     ResultType res=0;
@@ -64,8 +63,6 @@ void ComplexFilter::setTaps(int ntaps, ComplexFilter::TapType *i_taps, ComplexFi
 
     for (int i=0; i<2*ntaps; ++i)
         _samples[i] = 0;
-
-
 }
 
 
@@ -73,6 +70,7 @@ void ComplexFilter::setResult(ComplexFilter::ResultType i_res, ComplexFilter::Re
 {
     _I = i_res;
     _Q = q_res;
+
 #ifdef _DEBUG_
     Serial.print("I: ");
     Serial.println(_I, DEC);
