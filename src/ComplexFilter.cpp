@@ -54,7 +54,6 @@ void ComplexFilter::setTaps(int ntaps, ComplexFilter::TapType *i_taps, ComplexFi
 
     _samplesPtr = _samples.get();
 
-
     for (int i=0; i<ntaps; ++i)
         _iTaps[i] = i_taps[i];
 
@@ -109,14 +108,14 @@ void ComplexFilter::mainLoop(ComplexFilter *instance)
     while (true)
     {
         SampleEvent event;
-        xQueueReceive(instance->_sampleQueue, &event, portMAX_DELAY);
-
+        if (xQueueReceive(instance->_sampleQueue, &event, portMAX_DELAY) == pdTRUE)
+        {
 #ifdef _DEBUG_
-        Serial.println(event.sample);
+            Serial.println(event.sample);
 #endif
-
-        instance->addSample(event.sample);
-        instance->calculateOutput(i_res, q_res);
-        instance->setResult(i_res, q_res);
+            instance->addSample(event.sample);
+            instance->calculateOutput(i_res, q_res);
+            instance->setResult(i_res, q_res);
+        }
     }
 }
