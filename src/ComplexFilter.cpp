@@ -1,5 +1,25 @@
 #include "ComplexFilter.h"
 
+ComplexFilter::ComplexFilter():
+    _ntaps(0), 
+    _iTaps(nullptr),
+    _qTaps(nullptr), 
+    _samples(nullptr),
+    _iTapsPtr(nullptr),
+    _qTapsPtr(nullptr),
+    _samplesPtr(nullptr),
+    _samplePos(1),
+    _I(0),
+    _Q(0)
+{
+    _sampleQueue = xQueueCreate(10, sizeof(SampleEvent));
+}
+
+ComplexFilter::ComplexFilter(int ntaps, TapType *i_taps, TapType *q_taps): ComplexFilter()
+{
+    setTaps(ntaps, i_taps, q_taps);
+}
+
 void ComplexFilter::addSample(ComplexFilter::SampleType sample)
 {
     _samplePos--;
@@ -25,21 +45,6 @@ ComplexFilter::ResultType ComplexFilter::scalar_product(ComplexFilter::TapType *
     }
 
     return res;
-}
-
-ComplexFilter::ComplexFilter():
-    _ntaps(0), 
-    _iTaps(nullptr),
-    _qTaps(nullptr), 
-    _samples(nullptr),
-    _iTapsPtr(nullptr),
-    _qTapsPtr(nullptr),
-    _samplesPtr(nullptr),
-    _samplePos(1),
-    _I(0),
-    _Q(0)
-{
-    _sampleQueue = xQueueCreate(10, sizeof(SampleEvent));
 }
 
 void ComplexFilter::setTaps(int ntaps, ComplexFilter::TapType *i_taps, ComplexFilter::TapType *q_taps)

@@ -45,11 +45,12 @@ class ComplexFilter
 
   public:
     ComplexFilter();
+    ComplexFilter(int ntaps, TapType *i_taps, TapType *q_taps);
     ComplexFilter(const ComplexFilter &) = delete;
 
     ComplexFilter & operator = (const ComplexFilter &) = delete;
 
-    void setTaps(int mtaps, TapType *i_taps, TapType *q_taps);
+    void setTaps(int n_taps, TapType *i_taps, TapType *q_taps);
 
     ResultType getI() const;
     ResultType getQ() const;

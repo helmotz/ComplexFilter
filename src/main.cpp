@@ -65,14 +65,12 @@ static void timer0_setup(ComplexFilter *filter,  double timer_interval_sec)
 extern ComplexFilter::TapType taps_i[512];
 extern ComplexFilter::TapType taps_q[512];
 
-ComplexFilter filter;
+ComplexFilter filter(512, taps_i, taps_q);
 
 void setup() {
   Serial.begin(115200);
   vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-  filter.setTaps(sizeof(taps_i)/sizeof(taps_i[0]), taps_i, taps_q);
-  
 #ifndef _DEBUG_
   timer0_setup(&filter, 0.0001);
 #else  
