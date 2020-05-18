@@ -56,7 +56,8 @@ class ComplexFilter
     ResultType getQ() const;
 
     void enqueueSample(SampleType sample, bool from_isr);
-    static void mainLoop(ComplexFilter *instance);
+    static void staticMainLoop(ComplexFilter *instance);
+    void mainLoop();
 };
 
 #endif

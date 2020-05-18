@@ -106,7 +106,7 @@ void ComplexFilter::enqueueSample(ComplexFilter::SampleType sample, bool from_is
 }
 
 
-void ComplexFilter::mainLoop(ComplexFilter *instance)
+void ComplexFilter::staticMainLoop(ComplexFilter *instance)
 {
     ResultType i_res, q_res;
 
@@ -123,4 +123,9 @@ void ComplexFilter::mainLoop(ComplexFilter *instance)
             instance->setResult(i_res, q_res);
         }
     }
+}
+
+void ComplexFilter::mainLoop()
+{
+    ComplexFilter::staticMainLoop(this);
 }

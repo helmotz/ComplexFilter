@@ -83,7 +83,7 @@ void setup() {
   dac_output_enable(DAC_CHANNEL_1);
   dac_output_enable(DAC_CHANNEL_2);
 
-  xTaskCreate((TaskFunction_t)ComplexFilter::mainLoop, "mainLoop", 2048, &filter, 5, NULL);
+  xTaskCreate((TaskFunction_t)ComplexFilter::staticMainLoop, "mainLoop", 2048, &filter, 5, NULL);
 }
 
 void loop() {
