@@ -11,8 +11,8 @@ class ComplexFilter
 {
   public:
     using TapType = int32_t;
-    using SampleType = uint32_t;
-    using ResultType = uint32_t;
+    using SampleType = int32_t;
+    using ResultType = int32_t;
 
   private:
     struct SampleEvent
