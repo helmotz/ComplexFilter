@@ -14,6 +14,13 @@
 #define TIMER_SCALE           (TIMER_BASE_CLK / TIMER_DIVIDER)
 #define SAMPLE_BITS 12
 
+#ifdef _DEBUG_
+#include "WaveformGenerator.h"
+
+static WaveformGenerator<ComplexFilter::SampleType, 512>  wfgen(10000.0, 1000.0, 1<<(SAMPLE_BITS-1));
+#endif
+
+
 static void IRAM_ATTR timer0_isr(void *p)
 {
   ComplexFilter *flt = (ComplexFilter *)p;
@@ -29,8 +36,7 @@ static void IRAM_ATTR timer0_isr(void *p)
   ComplexFilter::SampleType sample=adc1_get_raw(ADC1_CHANNEL_0);
   sample -= (1 << (SAMPLE_BITS-1));
 #else
-  static ComplexFilter::SampleType sample=0;
-  sample++;
+  ComplexFilter::SampleType sample= wfgen.getSample();
 #endif
 
   flt->enqueueSample(sample, true);
@@ -72,10 +78,10 @@ void setup() {
   Serial.begin(115200);
   vTaskDelay(1000 / portTICK_PERIOD_MS);
 
-#ifndef _DEBUG_
-  timer0_setup(&filter, 0.0001);
+#ifdef _PRINT_
+  timer0_setup(&filter, 0.1);
 #else  
-  timer0_setup(&filter, 1.0);
+  timer0_setup(&filter, 0.0001);
 #endif
 
   adc1_config_width(ADC_WIDTH_BIT_12);

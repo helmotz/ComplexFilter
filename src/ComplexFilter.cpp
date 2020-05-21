@@ -75,7 +75,7 @@ void ComplexFilter::setResult(ComplexFilter::ResultType i_res, ComplexFilter::Re
     _I = i_res;
     _Q = q_res;
 
-#ifdef _DEBUG_
+#ifdef _PRINT_
     Serial.print("I: ");
     Serial.println(_I, DEC);
     Serial.print("Q: ");
@@ -115,7 +115,7 @@ void ComplexFilter::staticMainLoop(ComplexFilter *instance)
         SampleEvent event;
         if (xQueueReceive(instance->_sampleQueue, &event, portMAX_DELAY) == pdTRUE)
         {
-#ifdef _DEBUG_
+#ifdef _PRINT_
             Serial.println(event.sample);
 #endif
             instance->addSample(event.sample);
