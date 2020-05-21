@@ -12,7 +12,7 @@
 
 #define TIMER_DIVIDER         8
 #define TIMER_SCALE           (TIMER_BASE_CLK / TIMER_DIVIDER)
-
+#define SAMPLE_BITS 12
 
 static void IRAM_ATTR timer0_isr(void *p)
 {
@@ -27,6 +27,7 @@ static void IRAM_ATTR timer0_isr(void *p)
 
 #ifndef _DEBUG_
   ComplexFilter::SampleType sample=adc1_get_raw(ADC1_CHANNEL_0);
+  sample -= (1 << (SAMPLE_BITS-1));
 #else
   static ComplexFilter::SampleType sample=0;
   sample++;
