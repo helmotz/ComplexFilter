@@ -46,7 +46,7 @@ def generate_taps_file(fname, taps):
 
 
 if __name__ == "__main__":
-    taps0 = signal.firwin(512, [0.06, 0.94], window='hamming', pass_zero='bandpass')
+    taps0 = signal.firwin(512, [0.06, 0.6], window='hamming', pass_zero='bandpass')
     taps1 = signal.hilbert(taps0)
 
     #plt.figure()
