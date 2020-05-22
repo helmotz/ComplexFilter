@@ -7,10 +7,10 @@
 template <typename T, int N> class WaveformGenerator
 {
   private:
-	std::unique_ptr<T[]> _samples;
-	T _amplitude;
-	T *_samplesPtr;
-	int _counter;
+    std::unique_ptr<T[]> _samples;
+    T _amplitude;
+    T *_samplesPtr;
+    int _counter;
   public:
     WaveformGenerator(float fc, float frequency, T amplitude):_samples(new T[N]), _amplitude(amplitude), _counter(0)
     {
